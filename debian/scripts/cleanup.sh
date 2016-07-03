@@ -51,9 +51,9 @@ find /var/log -type f | while read f; do echo -ne '' > $f; done;
 # rm /boot/whitespace
 
 # # Zero out the free space to save space in the final image
-# dd if=/dev/zero of=/EMPTY bs=1M
-# rm -f /EMPTY
+dd if=/dev/zero of=/EMPTY bs=1M
+rm -f /EMPTY
 
 # Make sure we wait until all the data is written to disk, otherwise
 # Packer might quite too early
-# sync
+sync

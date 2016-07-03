@@ -1,17 +1,13 @@
 {
     "variables": {
-        "user": "admindebian",
-        "password": "admindebian",
-        "disk_size": "100000",
-        "domain": ""
+        "disk_size": "1200"
     },
 
     "builders":
     [
         {
             "name": "debian85",
-            "headless": "true",
-
+            
             "type": "qemu",
             "format": "qcow2",
             "accelerator": "kvm",
@@ -23,9 +19,9 @@
 
             "http_directory": "http",
 
-            "ssh_username": "{{user `user`}}",
-            "ssh_password": "{{user `password`}}",
-            "shutdown_command": "echo '{{user `password`}}'|sudo -S shutdown -h now",
+            "ssh_username": "debian",
+            "ssh_password": "debian",
+            "shutdown_command": "echo 'debian'|sudo -S shutdown -h now",
 
             "ssh_wait_timeout": "60m",
 
@@ -35,16 +31,8 @@
                    "install auto ",
                    "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
                    "debian-installer=en_US locale=en_US keymap=us ",
-                   "netcfg/get_hostname={{ .Name }} ",
-                   "netcfg/get_domain={{ user `domain`}} ",
-
-                   "fb=false debconf/frontend=noninteractive ",
-
-                   "passwd/user-fullname={{user `user`}} ",
-                   "passwd/user-password={{user `password`}} ",
-                   "passwd/user-password-again={{user `password`}} ",
-                   "passwd/username={{user `user`}} ",
-
+		   "fb=false debconf/frontend=noninteractive ",
+                   "netcfg/get_hostname=debian netcfg/get_domain= ",
                    "<enter>"
             ]
         }
@@ -53,7 +41,7 @@
     "provisioners": [
         {
             "type": "shell",
-            "execute_command": "echo '{{user `password`}}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+            "execute_command": "echo 'debian' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
             "scripts": [
                 "scripts/update.sh",
                 "scripts/cloud-init.sh",
