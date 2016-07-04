@@ -1,6 +1,6 @@
 {
     "variables": {
-        "disk_size": "61440",
+        "disk_size": "20000",
         "password": "vagrant"
     },
 
@@ -53,7 +53,12 @@
               "scripts/disable-hibernate.bat",
               "scripts/firewall-open-ping.bat",
               "scripts/firewall-open-rdp.bat"
-
+          ]
+      },
+      {
+          "type": "powershell",
+          "scripts": [
+              "scripts/cloudbase.ps1"
           ]
       }
     ]
